@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  slack-db:
+    image: postgres:17
+    container_name: slack-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: logilink_slack
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: always
+
+  slack-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: slack-service
+    ports:
+      - "19098:19098"
+    environment:
+
+      DB_HOST: slack-db
+      DB_PORT: 5432
+      DB_NAME: logilink_slack
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      SERVER_PORT: 19096
+    depends_on:
+      - slack-db
+    restart: always

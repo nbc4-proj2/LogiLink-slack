@@ -30,4 +30,4 @@ eureka:
       hostname: slack-service
 
 slack:
-  bot-token: ${SLACK_BOR_TOKEN}
+  bot-token: ${SLACK_BOT_TOKEN}

@@ -53,4 +53,34 @@ public class SlackApiService {
 			System.err.println("❌ Slack API error: " + e.getMessage());
 		}
 	}
+
+	/**
+	 * slack 이메일로 slack user Id 찾기
+	 * @param email slack email
+	 * @return slack user Id
+	 */
+	public String findSlackUserIdByEmail(String email) {
+		String url = "https://slack.com/api/users.lookupByEmail?email={email}";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(botToken);
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<Void> request = new HttpEntity<>(headers);
+
+		ResponseEntity<Map> response = restTemplate.exchange(
+			url, HttpMethod.GET, request, Map.class, email
+		);
+
+		Map<String, Object> body = response.getBody();
+		if (body == null) {
+			throw new IllegalStateException("Slack API returned no body");
+		}
+
+		if (Boolean.TRUE.equals(body.get("ok"))) {
+			Map user = (Map) body.get("user");
+			return (String) user.get("id"); // ← Slack 유저ID (Uxxxxxx)
+		} else {
+			String error = (String) body.get("error");
+			throw new IllegalStateException("Slack lookup failed: " + error);
+		}
+	}
 }

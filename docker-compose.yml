@@ -21,13 +21,14 @@ services:
     ports:
       - "19098:19098"
     environment:
-
+      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN}
+      SLACK_BASE_URL: https://slack.com/api
       DB_HOST: slack-db
       DB_PORT: 5432
       DB_NAME: logilink_slack
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
-      SERVER_PORT: 19096
+      SERVER_PORT: 19098
     depends_on:
       - slack-db
     restart: always

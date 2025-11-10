@@ -49,10 +49,21 @@ public class SlackUserLink {
 	@Column(name = "last_verified_at")
 	private LocalDateTime lastVerifiedAt = LocalDateTime.now();
 
-	public SlackUserLink(Long userId, String email, String slackUserId) {
+	protected SlackUserLink(Long userId, String email, String slackUserId) {
 		this.userId = userId;
 		this.email = email;
 		this.slackUserId = slackUserId;
+	}
+
+	public static SlackUserLink create(Long userId, String email, String slackUserId) {
+		SlackUserLink link = new SlackUserLink();
+		link.userId = userId;
+		link.email = email;
+		link.slackUserId = slackUserId;
+		link.isActive = true;
+		link.linkedAt = LocalDateTime.now();
+		link.lastVerifiedAt = LocalDateTime.now();
+		return link;
 	}
 
 	public void deactivate() {

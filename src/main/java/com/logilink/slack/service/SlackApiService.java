@@ -31,7 +31,7 @@ public class SlackApiService {
 			throw AppException.of(SlackErrorCode.SLACK_LOOKUP_FAILED);
 		}
 
-		SlackUserLink link = new SlackUserLink(userId, email, res.user().id());
+		SlackUserLink link = SlackUserLink.create(userId,email,res.user().id());
 		return slackUserLinkRepository.save(link);
 	}
 }

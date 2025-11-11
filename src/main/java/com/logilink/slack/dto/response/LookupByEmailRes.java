@@ -12,5 +12,6 @@ public record LookupByEmailRes(
 	public record SlackUser(
 		String id,
 		String name
-	) {}
+	) {
+	}
 }

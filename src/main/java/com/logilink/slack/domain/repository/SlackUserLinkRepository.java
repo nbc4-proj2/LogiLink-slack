@@ -10,6 +10,10 @@ import com.logilink.slack.domain.entity.SlackUserLink;
 public interface SlackUserLinkRepository extends JpaRepository<SlackUserLink, UUID> {
 
 	Optional<SlackUserLink> findByUserId(Long userId);
+
 	Optional<SlackUserLink> findByEmail(String email);
+
 	boolean existsByEmail(String email);
+
+	Optional<SlackUserLink> findBySlackUserId(String slackUserId);
 }

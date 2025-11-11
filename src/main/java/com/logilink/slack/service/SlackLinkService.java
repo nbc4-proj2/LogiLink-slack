@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class SlackApiService {
+public class SlackLinkService {
 
 	private final SlackClient slackClient;
 	private final SlackUserLinkRepository slackUserLinkRepository;

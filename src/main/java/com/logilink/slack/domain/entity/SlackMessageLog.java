@@ -36,6 +36,10 @@ public class SlackMessageLog {
 	private UUID messageId; // SlackMessage의 ID 참조 (FK처럼 사용)
 
 	@Enumerated(EnumType.STRING)
+	@Column(name = "action", nullable = false, length = 20)
+	private LogActionType action;
+
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
 	private MessageStatus status;
 
@@ -45,16 +49,26 @@ public class SlackMessageLog {
 	@Column(name = "response_message", columnDefinition = "TEXT")
 	private String responseMessage; // Slack 응답 내용
 
-	@Column(name = "logged_at", nullable = false)
-	private LocalDateTime loggedAt;
+	@Column(name = "channel_id", length = 32)
+	private String channelId;
 
-	public static SlackMessageLog of(SlackMessage message, MessageStatus status, String code, String msg) {
+	@Column(name = "slack_ts", length = 32)
+	private String slackTs;
+
+	@Column(name = "logged_at", nullable = false)
+	private LocalDateTime createdAt;
+
+	public static SlackMessageLog of(SlackMessage message, LogActionType action, MessageStatus status, String code,
+									 String msg) {
 		return SlackMessageLog.builder()
 							  .messageId(message.getId())
+							  .action(action)
 							  .status(status)
 							  .responseCode(code)
 							  .responseMessage(msg)
-							  .loggedAt(LocalDateTime.now())
+							  .channelId(message.getChannelId())
+							  .slackTs(message.getSlackTs())
+							  .createdAt(LocalDateTime.now())
 							  .build();
 	}
 }

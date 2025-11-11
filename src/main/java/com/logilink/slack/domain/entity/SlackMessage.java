@@ -44,6 +44,9 @@ public class SlackMessage {
 	@Column(name = "content", nullable = false, columnDefinition = "TEXT")
 	private String content; // 메시지 본문
 
+	@Column(name = "slack_ts")
+	private String slackTs;    // 메세지 타임스탬프. 슬랙에선 식별자 같은 역할.
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false, length = 30)
 	private MessageStatus status; // SENT, FAILED 등
@@ -64,9 +67,10 @@ public class SlackMessage {
 						   .build();
 	}
 
-	public void markSent(String channelId) {
+	public void markSent(String channelId, String ts) {
 		this.status = MessageStatus.SENT;
 		this.channelId = channelId;
+		this.slackTs = ts;
 		this.sentAt = LocalDateTime.now();
 	}
 

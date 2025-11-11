@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.logilink.slack.domain.entity.SlackMessage;
+import com.logilink.slack.domain.entity.SlackMessageLog;
 
-public interface SlackMessageLogRepository extends JpaRepository<SlackMessage, UUID> {
+public interface SlackMessageLogRepository extends JpaRepository<SlackMessageLog, UUID> {
 }

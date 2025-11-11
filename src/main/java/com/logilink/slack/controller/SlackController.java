@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.logilink.slack.common.BaseResponse;
-import com.logilink.slack.domain.entity.SlackUserLink;
 import com.logilink.slack.dto.request.SendMessageReq;
 import com.logilink.slack.dto.request.SlackLinkReq;
+import com.logilink.slack.dto.response.SlackUserLinkRes;
 import com.logilink.slack.service.SlackLinkService;
 import com.logilink.slack.service.SlackMessageService;
 
@@ -24,9 +24,9 @@ public class SlackController {
 	private final SlackMessageService slackMessageService;
 
 	@PostMapping("/link")
-	public ResponseEntity<BaseResponse<SlackUserLink>> linkSlackUser(
+	public ResponseEntity<BaseResponse<SlackUserLinkRes>> linkSlackUser(
 		@Valid @RequestBody SlackLinkReq request) {
-		SlackUserLink link = slackLinkService.linkSlackAccount(
+		SlackUserLinkRes link = slackLinkService.linkSlackAccount(
 			request.userId(),
 			request.email()
 		);

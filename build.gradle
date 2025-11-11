@@ -37,6 +37,9 @@ dependencies {
     // slack
     implementation "com.slack.api:slack-api-client:1.45.3"
 
+//    // json
+//    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
     implementation "org.slf4j:slf4j-simple:1.7.36"
     compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'

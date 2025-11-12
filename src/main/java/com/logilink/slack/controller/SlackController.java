@@ -29,14 +29,14 @@ public class SlackController {
 	private final SlackMessageService slackMessageService;
 
 	@PostMapping("/link")
-	public ResponseEntity<BaseResponse<SlackUserLinkRes>> linkSlackUser(
+	public ResponseEntity<BaseResponse<String>> linkSlackUser(
 		@Valid @RequestBody SlackLinkReq request) {
 		SlackUserLinkRes link = slackLinkService.linkSlackAccount(
 			request.userId(),
 			request.email()
 		);
 
-		return ResponseEntity.ok(BaseResponse.success(link));
+		return ResponseEntity.ok(BaseResponse.success(link.getSlackUserId()));
 	}
 
 	@GetMapping("/links/{userId}")

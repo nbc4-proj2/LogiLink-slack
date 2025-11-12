@@ -21,14 +21,6 @@ public class BaseResponse<T> {
     private HttpStatus status;
     private T result;
 
-//    // 요청에 성공한 경우
-//    private BaseResponse(T result) {
-//        this.isAuccess = true;
-//        this.message = "요청에 성공했습니다.";
-//        this.status = HttpStatus.OK;
-//        this.result = result;
-//    }
-
     public static <T> BaseResponse<T> success(T data) {
         return new BaseResponse<>(true, "요청이 성공했습니다.", HttpStatus.OK, data);
     }
